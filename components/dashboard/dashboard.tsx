@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   BarChart3,
@@ -17,6 +17,22 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+interface NavItemProps {
+  icon: ReactNode;
+  label: string;
+  isActive?: boolean;
+}
+interface StatsCardProps {
+  title: string;
+  value: string | number;
+  description: string;
+}
+interface ActivityItemProps {
+  title: string;
+  description: string;
+  time: string;
+}
 
 export default function Dashboard() {
   const router = useRouter();
@@ -229,8 +245,7 @@ export default function Dashboard() {
   );
 }
 
-// Helper Components
-function NavItem({ icon, label, isActive = false }) {
+function NavItem({ icon, label, isActive = false }: NavItemProps) {
   return (
     <Button
       variant={isActive ? "secondary" : "ghost"}
@@ -244,7 +259,7 @@ function NavItem({ icon, label, isActive = false }) {
   );
 }
 
-function StatsCard({ title, value, description }) {
+function StatsCard({ title, value, description }: StatsCardProps) {
   return (
     <Card>
       <CardHeader className="pb-2">
@@ -260,7 +275,7 @@ function StatsCard({ title, value, description }) {
   );
 }
 
-function ActivityItem({ title, description, time }) {
+function ActivityItem({ title, description, time }: ActivityItemProps) {
   return (
     <div className="flex items-start space-x-4 border-b border-gray-100 pb-4 last:border-0 last:pb-0">
       <div className="rounded-full bg-emerald-100 p-2">

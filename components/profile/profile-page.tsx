@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { ChangeEvent, FormEvent, ReactNode, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+
 import { Car, FileText, Home, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,8 +11,14 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 
+interface NavLinkProps {
+  href: string;
+  icon: ReactNode;
+  label: string;
+  isActive?: boolean;
+}
+
 export default function ProfilePage() {
-  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "Neeraj Bhandari",
     email: "neeraj.bhandari@example.com",
@@ -33,22 +39,23 @@ export default function ProfilePage() {
   const previewImage =
     "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-5EanuhbLJXjHqCDeQANx8KRCY7tu2P.png";
 
-  const handleInputChange = (e) => {
+  // For text input changes
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleFileChange = (e, type) => {
+  // For file input changes
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>, type: string) => {
     if (e.target.files && e.target.files[0]) {
-      setFiles((prev) => ({ ...prev, [type]: e.target.files[0] }));
+      setFiles((prev) => ({ ...prev, [type]: e.target.files![0] }));
     }
   };
 
-  const handleSubmit = (e) => {
+  // For form submission
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle form submission
     console.log("Form submitted:", formData, files);
-    // Show success message or redirect
   };
 
   return (
@@ -345,8 +352,7 @@ export default function ProfilePage() {
   );
 }
 
-// Helper component for navigation links
-function NavLink({ href, icon, label, isActive = false }) {
+function NavLink({ href, icon, label, isActive = false }: NavLinkProps) {
   return (
     <Link
       href={href}

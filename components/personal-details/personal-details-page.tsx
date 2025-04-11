@@ -1,16 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, FormEvent, ChangeEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { ArrowUp, Car, Facebook, Linkedin, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export default function PersonalDetailsPage() {
-  const router = useRouter();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -19,8 +17,6 @@ export default function PersonalDetailsPage() {
     email: "",
   });
 
-  // State for scroll position and direction
-  const [scrollY, setScrollY] = useState(0);
   const [scrollDirection, setScrollDirection] = useState("down");
   const [showBackToTop, setShowBackToTop] = useState(false);
 
@@ -42,7 +38,6 @@ export default function PersonalDetailsPage() {
       setShowBackToTop(currentScrollY > 300);
 
       // Update scroll position
-      setScrollY(currentScrollY);
       lastScrollY = currentScrollY;
     };
 
@@ -54,12 +49,12 @@ export default function PersonalDetailsPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
     // Handle form submission - could redirect or show success message

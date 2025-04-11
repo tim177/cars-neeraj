@@ -11,12 +11,6 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 
-/**
- * LoginPage Component
- *
- * A split-screen layout with a car interior image on the left
- * and a login form on the right, matching the provided design.
- */
 export default function LoginPage() {
   const router = useRouter();
   // Form state
